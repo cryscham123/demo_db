@@ -1,0 +1,35 @@
+services:
+  mssql:
+    container_name: mssql
+    build:
+      context: app/mssql
+      args:
+        ACCEPT_EULA: Y
+        MSSQL_SA_PASSWORD: QkrQkrdl!@#4
+        APP_PASSWORD: QkrQkrdl!@#4
+    image: mssql
+    restart: always
+    init: true
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=QkrQkrdl!@#4
+      - APP_PASSWORD=QkrQkrdl!@#4
+    #volumes:
+      #  - ${PWD}/mssql/data:/var/opt/mssql
+    expose:
+      - 1433
+  # dotnet:
+  #   container_name: dotnet
+  #   build: app/dotnet
+  #   image: dotnet
+  #   restart: always
+  #   init: true
+  #   depends_on:
+  #     mssql:
+  #       condition: service_healthy
+  #       restart: true
+  #   environment:
+  #     - ASPNETCORE_URLS=http://0.0.0.0:5000
+  #     - DOTNET_EnableDiagnostics=0
+  #   ports:
+  #     - 5000:5000
